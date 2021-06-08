@@ -1,1 +1,1 @@
-web: gunicorn dproject.wsgi
+web: python manage.py collectstatic --no-input; gunicorn dproject.wsgi --log-file - --log-level debug
