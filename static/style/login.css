@@ -1,0 +1,103 @@
+.comp {
+  display: inline-block;
+  font-size: 3rem;
+}
+.active {
+  border-bottom: 4px solid cyan;
+  border-radius: 2px;
+}
+.lef {
+  flex-grow: 0;
+  font-size: 2rem;
+}
+body {
+  background-image: url("/static/imgs/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+nav {
+  display: block;
+}
+
+.logform {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  padding: 20px;
+  border: #333 solid 5px;
+  border-radius: 5px;
+}
+.loginner {
+  background: rgba(1, 1, 1, 0.7);
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  height: 102%;
+  width: 102%;
+  border: none;
+  z-index: -1;
+}
+input {
+  display: block;
+  margin: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 50px;
+}
+input:hover,
+input:focus {
+  border-radius: 10px;
+  transition: 0.4s ease-out;
+}
+
+input::placeholder {
+  font-weight: bold;
+}
+h1 {
+  color: white;
+  font-weight: 500;
+  border-bottom: solid 3px white;
+}
+.logbtn {
+  background: rgba(0, 255, 255, 0.8);
+  border-radius: 10px;
+  width: 70%;
+  text-align: center;
+  transition: all 0.5s;
+}
+.logbtn > a {
+  font-weight: 700;
+  color: white;
+  font-size: 2rem;
+  display: inline-block;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+.logbtn:hover,
+.logbtn > a:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  color: #333;
+  transition: 0.5s ease;
+}
+.footer {
+  background-color: #212529;
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  color: aliceblue;
+}
+.hlit:hover {
+  border-bottom: 4px solid cyan;
+  border-radius: 2px;
+  transition: 0.5s ease-in-out;
+}
+.ddown {
+  width: 245px;
+}
+.error {
+  color: red;
+  font-size: 20px;
+  z-index: 5;
+}

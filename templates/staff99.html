@@ -1,0 +1,72 @@
+{% extends 'staff_base.html' %} {% block title %}Staff{% endblock title %}
+{%load crispy_forms_tags%}{%block sidebar %}
+<li>
+  <a href="{% url 'staffac' value=0 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="fab fa-product-hunt"></i>
+    </svg>
+    &nbsp Issue Product
+  </a>
+</li>
+<li>
+  <a href="{% url 'staffac' value=1 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-user"></i>
+    </svg>
+    &nbsp Issued Product
+  </a>
+</li>
+<li>
+  <a href="{% url 'staffac' value=2 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-flag"></i>
+    </svg>
+    &nbsp Transactions
+  </a>
+</li>
+{% endblock sidebar %} {% block statcards %}
+
+<div class="outflex">
+  <div class="container-fluid headd"></div>
+  <div class="stat">
+    {% comment %} <div class="card">
+      <div class="card-body card1">
+        <h5 class="card-title text-center">-----</h5>
+        <p class="card-text">-</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body card2">
+        <h5 class="card-title text-center">-----</h5>
+        <p class="card-text">-</p>
+      </div>
+    </div> {% endcomment %}
+    <div class="card">
+      <div class="card-body card3">
+        <h5 class="card-title text-center">Issued products</h5>
+        <p class="card-text">{{arr.2}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body card4">
+        <h5 class="card-title text-center">Transactions</h5>
+        <p class="card-text">{{arr.3}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid headd"></div>
+  <div class="infoout">
+    <form class="info text-white" method="POST" action="">
+      {% csrf_token %} {{form1|crispy}}{{form2|crispy}}
+      <input type="submit" value="Update" />
+      <a
+        name="Chg_psswd"
+        class="btn btn-primary tp"
+        href="{%url 'staffac' value=100 %}"
+        role="button"
+        >Change Password</a
+      >
+    </form>
+  </div>
+</div>
+{% endblock statcards %}

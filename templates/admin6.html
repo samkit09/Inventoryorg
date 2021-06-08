@@ -1,0 +1,147 @@
+{% extends 'admin_base.html' %} {% block title %}Admin{% endblock title %}
+{% block style %}
+#id_employee_id,#id_product_id,#id_product_serial{
+  margin-top:20px;
+}
+#div_id_issue_date,#div_id_return_date{
+  margin-top:40px;
+}
+{% endblock style %}
+{%block sidebar %} {%load crispy_forms_tags%}
+<li class="nav-item">
+  <a href="{% url 'adminac' value=0 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-address-book"></i>
+    </svg>
+    &nbsp Accounts
+  </a>
+</li>
+<li>
+  <a href="{% url 'adminac' value=1 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-address-card"></i>
+    </svg>
+    &nbsp Create Account
+  </a>
+</li>
+<li>
+  <a href="{% url 'adminac' value=2 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-user"></i>
+    </svg>
+    &nbsp Employees
+  </a>
+</li>
+<li>
+  <a href="{% url 'adminac' value=3 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="fas fa-user-plus"></i>
+    </svg>
+    &nbsp Add Employee
+  </a>
+</li>
+<li>
+  <a href="{% url 'adminac' value=4 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="fab fa-product-hunt"></i>
+    </svg>
+    &nbsp Products
+  </a>
+</li>
+<li>
+  <a href="{% url 'adminac' value=5 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="fas fa-file-invoice"></i>
+    </svg>
+    &nbsp Issued/Return
+  </a>
+</li>
+<li>
+  <a
+    href="{% url 'adminac' value=6 %}"
+    class="nav-link active text-white"
+    aria-current="page"
+  >
+    <svg class="bi me-2" width="16" height="16">
+      <i class="fab fa-creative-commons-share"></i>
+    </svg>
+    &nbsp Assign Product
+  </a>
+</li>
+<li>
+  <a href="{% url 'adminac' value=7 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-flag"></i>
+    </svg>
+    &nbsp Reports
+  </a>
+</li>
+{% endblock sidebar %} {% block statcards %}
+
+<div class="outflex">
+  <div class="container-fluid headd"></div>
+  <div class="stat">
+    <div class="card">
+      <div class="card-body card1">
+        <h5 class="card-title text-center">Total Employees</h5>
+        <p class="card-text">{{arr.0}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body card2">
+        <h5 class="card-title text-center">Available Products</h5>
+        <p class="card-text">{{arr.1}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body card3">
+        <h5 class="card-title text-center">Issued Products</h5>
+        <p class="card-text">{{arr.2}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body card4">
+        <h5 class="card-title text-center">Departments</h5>
+        <p class="card-text">{{arr.3}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid headd"></div>
+  <div class="infoout">
+    <form
+      id="transaction"
+      product-serials="{% url 'load_serial' %}"
+      method="POST"
+      action=""
+    >
+      {% csrf_token %} {{form6|crispy}}
+      <input type="submit" value="Assign" />
+    </form>
+  </div>
+</div>
+{% endblock statcards %} {% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#id_product_id").change(function () {
+    const url = $("#transaction").attr("product-serials"); // get the url of the `load_serial` view
+    const product_Id = $(this).val(); // get the selected product ID from the HTML input
+
+    $.ajax({
+      // initialize an AJAX request
+      url: url, // set the url of the request (= /load-cities/ )
+      data: {
+        product_id: product_Id, // add the product id to the GET parameters
+      },
+      success: function (data) {
+        // `data` is the return of the `load_serial` view function
+        // replace the contents of the serial input with the data that came from the server
+        let html_data = '<option value="">---------</option>';
+        data.forEach(function (serial) {
+          html_data += `<option value="${serial.product_serial}">${serial.product_serial}</option>`;
+        });
+        $("#id_product_serial").html(html_data);
+      },
+    });
+  });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,79 @@
+{% extends 'staff_base.html' %} {% block title %}Staff{% endblock title %}
+{%block sidebar %}
+<li>
+  <a
+    href="{% url 'staffac' value=0 %}"
+    class="nav-link active text-white"
+    aria-current="page"
+  >
+    <svg class="bi me-2" width="16" height="16">
+      <i class="fab fa-product-hunt"></i>
+    </svg>
+    &nbsp Issue Product
+  </a>
+</li>
+<li>
+  <a href="{% url 'staffac' value=1 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-user"></i>
+    </svg>
+    &nbsp Issued Product
+  </a>
+</li>
+<li>
+  <a href="{% url 'staffac' value=2 %}" class="nav-link text-white">
+    <svg class="bi me-2" width="16" height="16">
+      <i class="far fa-flag"></i>
+    </svg>
+    &nbsp Transactions
+  </a>
+</li>
+{% endblock sidebar %} {% block statcards %}
+
+<div class="outflex">
+  <div class="container-fluid headd"></div>
+  <div class="stat">
+  
+    <div class="card">
+      <div class="card-body card3">
+        <h5 class="card-title text-center">Issued products</h5>
+        <p class="card-text">{{arr.2}}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body card4">
+        <h5 class="card-title text-center">Transactions</h5>
+        <p class="card-text">{{arr.3}}</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="container-fluid headd"></div>
+  <div class="infoout">
+    <table class="table table-dark table-striped" style="width: 100%">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Brand</th>
+        <th>quantity</th>
+        <th>Returnable</th>
+        <th>Issue</th>
+      </tr>
+      {% for instance in queryset3%}
+      <tr>
+        <td>{{instance.product_id}}</td>
+        <td>{{instance.product_name}}</td>
+        <td>{{instance.category}}</td>
+        <td>{{instance.brand}}</td>
+        <td>{{instance.quantity}}</td>
+        <td>{{instance.is_returnable}}</td>
+        <td>
+          <a href="{% url 'staffac' value=0 pk=instance.product_id %}">Issue</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock statcards %}
