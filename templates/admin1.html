@@ -1,6 +1,7 @@
 {% extends 'admin_base.html' %} {% block title%}Admin{% endblock title %}
 {%block style %} #div_id_acc_type{ margin-left:40px; }
 #div_id_is_admin>label,#div_id_is_active>label{ position:relative; top:6px;}
+#hint_id_password1{text-align:left;}#hint_id_password2{margin-left:30px;}
 {%endblock style %}{%block sidebar %} {%load crispy_forms_tags%}
 <li class="nav-item">
   <a href="{% url 'adminac' value=0 %}" class="nav-link text-white">
