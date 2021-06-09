@@ -29,7 +29,7 @@ from datetime import datetime, date
 
 def adminac(request, value=0, pk='0'):
     if request.user.is_anonymous or pk == 'logoutuser' or request.user.acc_type != 'AD':
-        return redirect('/login')
+        return redirect('/login/')
 
     elif request.user.acc_type == 'AD':
 

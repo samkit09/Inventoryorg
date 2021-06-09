@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
-DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'inventoryorg.herokuapp.com',
                  'https://inventoryorg.herokuapp.com', 'www.inventoryorg.herokuapp.com']
@@ -162,5 +162,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #         'rest_framework.permission.IsAuthenticated',
 #     ),
 # }
-
+APPEND_SLASH = False
 django_heroku.settings(locals())
