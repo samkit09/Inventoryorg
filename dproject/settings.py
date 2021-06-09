@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-# import os
+import os
 from pathlib import Path
 import django_heroku
 
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-luz07tmn96cpau=acqju1*#^kdz)j$lt@(0=^brc9w4w*s^hzs'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = 'django-insecure-luz07tmn96cpau=acqju1*#^kdz)j$lt@(0=^brc9w4w*s^hzs'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
+# DEBUG = False
+DEBUG = (os.environ.get('DEBUG_VALUE')=='True')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'inventoryorg.herokuapp.com',
                  'https://inventoryorg.herokuapp.com', 'www.inventoryorg.herokuapp.com']
@@ -163,4 +163,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #     ),
 # }
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())

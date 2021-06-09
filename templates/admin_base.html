@@ -37,20 +37,20 @@
     />
     <link rel="icon" type="image/png" href="{% static 'imgs/logo.png' %}" />
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
         }
-      }
-    {% block style %}{% endblock style %}
+
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      {% block style %}{% endblock style %}
     </style>
 
     <title>Inventory Org | {% block title %}{% endblock title %}</title>
@@ -107,7 +107,11 @@
             class="dropdown-menu dropdown-menu-dark text-small shadow"
             aria-labelledby="dropdownUser1"
           >
-            <li><a class="dropdown-item" href="{% url 'adminac' value=99 %}">Profile</a></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'adminac' value=99 %}"
+                >Profile</a
+              >
+            </li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="logoutuser">Sign out</a></li>
           </ul>
@@ -117,7 +121,6 @@
       <div class="b-example-divider"></div>
       {% block statcards %}{% endblock statcards %}
       <div class="b-example-divider"></div>
-      
     </main>
     <div class="container-fluid footer text-center">
       All rights are reserved &copy 2021

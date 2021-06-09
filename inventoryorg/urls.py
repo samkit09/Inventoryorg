@@ -1,10 +1,11 @@
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 from . import views
 
 urlpatterns = [
+
     path('', views.loginuser, name="login"),
-    path('login/', views.loginuser, name="login"),
+    path('login', views.loginuser, name="login"),
     path('load_serial/', views.load_serial, name="load_serial"),
 
     path('adminac/<int:value>/', views.adminac, name="adminac"),
