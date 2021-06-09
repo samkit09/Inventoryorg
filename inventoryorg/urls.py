@@ -1,10 +1,11 @@
 from django.conf.urls import url
-from django.urls import path,re_path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
 
     path('', views.loginuser, name="login"),
+    path('/', views.loginuser, name="login"),
     path('login', views.loginuser, name="login"),
     path('load_serial/', views.load_serial, name="load_serial"),
 
@@ -18,5 +19,5 @@ urlpatterns = [
     path('staffac/<int:value>/<str:pk>/', views.staffac, name="staffac"),
 
     path('logoutuser', views.logoutuser, name="logoutuser"),
-    re_path(r'./logoutuser$',views.logoutuser, name="logoutuser"),
+    re_path(r'./logoutuser$', views.logoutuser, name="logoutuser"),
 ]
