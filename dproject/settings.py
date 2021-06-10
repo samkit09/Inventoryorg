@@ -24,11 +24,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-luz07tmn96cpau=acqju1*#^kdz)j$lt@(0=^brc9w4w*s^hzs'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+# logging added manually
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'inventoryorg.herokuapp.com',
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '.inventoryorg.herokuapp.com',
                  'https://inventoryorg.herokuapp.com', 'www.inventoryorg.herokuapp.com']
 
 # Application definition
@@ -137,7 +154,7 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = '/static/'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -164,3 +181,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # }
 APPEND_SLASH = False
 django_heroku.settings(locals())
+
+### debug logs while DEBUG = False
+# from django.views.decorators.csrf import requires_csrf_token
+# from django.http import (
+#     HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound,
+#     HttpResponseServerError,)
+# @requires_csrf_token
+# def my_customized_server_error (request, template_name = '500.html'):
+#     import sys
+#     from django.views import debug
+#     error_html = debug.technical_500_response (request, * sys.exc_info ()). content
+#     return HttpResponseServerError (error_html)

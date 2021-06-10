@@ -25,3 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('inventoryorg.urls')),
 ]
+
+# from dproject.settings import my_customized_server_error
+# handler500 = my_customized_server_error

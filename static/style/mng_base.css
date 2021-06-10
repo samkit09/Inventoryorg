@@ -90,7 +90,7 @@ form > div {
   align-self: flex-end;
   justify-content: flex-start;
   text-align: center;
-  /* align-items: baseline; */
+  align-items: baseline;
 }
 .info > input {
   position: relative;
@@ -112,7 +112,7 @@ td > a:hover {
 }
 .info > input {
   margin-bottom: 100px;
-  margin-left:40px;
+  margin-left: 40px;
 }
 /* #id_product_serial{
   margin-right: 20px;

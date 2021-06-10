@@ -1,6 +1,6 @@
 {% extends 'admin_base.html' %} {% block title%}Admin{% endblock title %}
 {%block style %} #div_id_email{ margin-left:45px; margin-right: inherit;
-margin-bottom: 40px; } #id_email{ margin-top: 20px; } {% endblock style %}
+margin-bottom: 40px; } #id_email{ margin-top: 20px; } form{margin-right:10px;}{% endblock style %}
 {%block sidebar %}{%load crispy_forms_tags%}
 <li class="nav-item">
   <a href="{% url 'adminac' value=0 %}" class="nav-link text-white">
