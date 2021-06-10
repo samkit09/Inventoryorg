@@ -149,17 +149,20 @@ def adminac(request, value=0, pk='0'):
             return render(request, 'admin4.html', context)
         if value == 5 and pk == '0':
             temp = request.user.id
-            queryset2 = Employee.objects.get(email=temp)
-            temp = str(queryset2.employee_id).split(':')
-            temp = temp[0].rstrip()
-            queryset5 = Invt_mgt.objects.filter(employee_id=temp)
-            queryset5 = queryset5.filter(reporting_date=None)
-            queryset5 = queryset5.exclude(return_date=None)
-            context = {
-                'queryset5': queryset5,
-                'arr': arr,
-            }
-            return render(request, 'admin5.html', context)
+            try:
+                queryset2 = Employee.objects.get(email=temp)
+                temp = str(queryset2.employee_id).split(':')
+                temp = temp[0].rstrip()
+                queryset5 = Invt_mgt.objects.filter(employee_id=temp)
+                queryset5 = queryset5.filter(reporting_date=None)
+                queryset5 = queryset5.exclude(return_date=None)
+                context = {
+                    'queryset5': queryset5,
+                    'arr': arr,
+                }
+                return render(request, 'admin5.html', context)
+            except:
+                return redirect('adminac',value=3)
 
         if value == 55 and pk != '0':
             queryset5 = Invt_mgt.objects.get(id=pk)
@@ -218,27 +221,30 @@ def adminac(request, value=0, pk='0'):
                     return response
             return render(request, 'admin7.html', context)
         if value == 99:
-            temp = request.user.id
-            queryset1 = Account.objects.get(id=temp)
-            queryset2 = Employee.objects.get(email=temp)
-            form1 = AccountUpdateform1(instance=queryset1)
-            form2 = EmployeeUpdateform(instance=queryset2)
-            if request.method == 'POST':
-                form1 = AccountUpdateform1(
-                    request.POST or None, instance=queryset1)
-                form2 = EmployeeUpdateform(
-                    request.POST or None, instance=queryset2)
-                if form1.is_valid():
-                    form1.save()
-                if form2.is_valid():
-                    form2.save()
-                return redirect('adminac', value=99)
-            context = {
-                'form1': form1,
-                'form2': form2,
-                'arr': arr,
-            }
-            return render(request, 'admin99.html', context)
+            try:
+                temp = request.user.id
+                queryset1 = Account.objects.get(id=temp)
+                queryset2 = Employee.objects.get(email=temp)
+                form1 = AccountUpdateform1(instance=queryset1)
+                form2 = EmployeeUpdateform(instance=queryset2)
+                if request.method == 'POST':
+                    form1 = AccountUpdateform1(
+                        request.POST or None, instance=queryset1)
+                    form2 = EmployeeUpdateform(
+                        request.POST or None, instance=queryset2)
+                    if form1.is_valid():
+                        form1.save()
+                    if form2.is_valid():
+                        form2.save()
+                    return redirect('adminac', value=99)
+                context = {
+                    'form1': form1,
+                    'form2': form2,
+                    'arr': arr,
+                }
+                return render(request, 'admin99.html', context)
+            except:
+                return redirect('adminac',value=3)
         if value == 100:
             if request.method == 'POST':
                 form = PasswordChangeForm(request.user, request.POST)
@@ -378,18 +384,21 @@ def managerac(request, value=0, pk='0'):
             }
             return render(request, 'manager44.html', context)
         if value == 5 and pk == '0':
-            temp = request.user.id
-            queryset2 = Employee.objects.get(email=temp)
-            temp = str(queryset2.employee_id).split(':')
-            temp = temp[0].rstrip()
-            queryset5 = Invt_mgt.objects.filter(employee_id=temp)
-            queryset5 = queryset5.filter(reporting_date=None)
-            queryset5 = queryset5.exclude(return_date=None)
-            context = {
-                'queryset5': queryset5,
-                'arr': arr,
-            }
-            return render(request, 'manager5.html', context)
+            try:
+                temp = request.user.id
+                queryset2 = Employee.objects.get(email=temp)
+                temp = str(queryset2.employee_id).split(':')
+                temp = temp[0].rstrip()
+                queryset5 = Invt_mgt.objects.filter(employee_id=temp)
+                queryset5 = queryset5.filter(reporting_date=None)
+                queryset5 = queryset5.exclude(return_date=None)
+                context = {
+                    'queryset5': queryset5,
+                    'arr': arr,
+                }
+                return render(request, 'manager5.html', context)
+            except:
+                return redirect('managerac',value=4)
         if value == 55 and pk != '0':
             queryset5 = Invt_mgt.objects.get(id=pk)
             form9 = Invt_mgtReturnform(instance=queryset5)
@@ -432,27 +441,30 @@ def managerac(request, value=0, pk='0'):
         if value == 6:
             return render(request, 'manager6.html', context)
         if value == 99:
-            temp = request.user.id
-            queryset1 = Account.objects.get(id=temp)
-            queryset2 = Employee.objects.get(email=temp)
-            form1 = AccountUpdateform1(instance=queryset1)
-            form2 = EmployeeUpdateform(instance=queryset2)
-            if request.method == 'POST':
-                form1 = AccountUpdateform1(
-                    request.POST or None, instance=queryset1)
-                form2 = EmployeeUpdateform(
-                    request.POST or None, instance=queryset2)
-                if form1.is_valid():
-                    form1.save()
-                if form2.is_valid():
-                    form2.save()
-                return redirect('managerac', value=99)
-            context = {
-                'form1': form1,
-                'form2': form2,
-                'arr': arr,
-            }
-            return render(request, 'manager99.html', context)
+            try:
+                temp = request.user.id
+                queryset1 = Account.objects.get(id=temp)
+                queryset2 = Employee.objects.get(email=temp)
+                form1 = AccountUpdateform1(instance=queryset1)
+                form2 = EmployeeUpdateform(instance=queryset2)
+                if request.method == 'POST':
+                    form1 = AccountUpdateform1(
+                        request.POST or None, instance=queryset1)
+                    form2 = EmployeeUpdateform(
+                        request.POST or None, instance=queryset2)
+                    if form1.is_valid():
+                        form1.save()
+                    if form2.is_valid():
+                        form2.save()
+                    return redirect('managerac', value=99)
+                context = {
+                    'form1': form1,
+                    'form2': form2,
+                    'arr': arr,
+                }
+                return render(request, 'manager99.html', context)
+            except:
+                return redirect('managerac',value=6)
         if value == 100:
             if request.method == 'POST':
                 form = PasswordChangeForm(request.user, request.POST)
@@ -538,18 +550,21 @@ def staffac(request, value=0, pk='0'):
             }
             return render(request, 'staff00.html', context)
         if value == 1 and pk == '0':
-            temp = request.user.id
-            queryset2 = Employee.objects.get(email=temp)
-            temp = str(queryset2.employee_id).split(':')
-            temp = temp[0].rstrip()
-            queryset5 = Invt_mgt.objects.filter(employee_id=temp)
-            queryset5 = queryset5.filter(reporting_date=None)
-            queryset5 = queryset5.exclude(return_date=None)
-            context = {
-                'queryset5': queryset5,
-                'arr': arr,
-            }
-            return render(request, 'staff1.html', context)
+            try:
+                temp = request.user.id
+                queryset2 = Employee.objects.get(email=temp)
+                temp = str(queryset2.employee_id).split(':')
+                temp = temp[0].rstrip()
+                queryset5 = Invt_mgt.objects.filter(employee_id=temp)
+                queryset5 = queryset5.filter(reporting_date=None)
+                queryset5 = queryset5.exclude(return_date=None)
+                context = {
+                    'queryset5': queryset5,
+                    'arr': arr,
+                }
+                return render(request, 'staff1.html', context)
+            except:
+                return redirect('staffac',value=0)
         if value == 11 and pk != '0':
             queryset5 = Invt_mgt.objects.get(id=pk)
             form9 = Invt_mgtReturnform(instance=queryset5)
@@ -590,38 +605,44 @@ def staffac(request, value=0, pk='0'):
             }
             return render(request, 'staff11.html', context)
         if value == 2:
-            temp = request.user.id
-            queryset2 = Employee.objects.get(email=temp)
-            temp = str(queryset2.employee_id).split(':')
-            temp = temp[0].rstrip()
-            queryset5 = Invt_mgt.objects.filter(employee_id=temp)
-            context = {
-                'queryset5': queryset5,
-                'arr': arr,
-            }
-            return render(request, 'staff2.html', context)
+            try:
+                temp = request.user.id
+                queryset2 = Employee.objects.get(email=temp)
+                temp = str(queryset2.employee_id).split(':')
+                temp = temp[0].rstrip()
+                queryset5 = Invt_mgt.objects.filter(employee_id=temp)
+                context = {
+                    'queryset5': queryset5,
+                    'arr': arr,
+                }
+                return render(request, 'staff2.html', context)
+            except:
+                return redirect('staffac',value=0)
         if value == 99:
-            temp = request.user.id
-            queryset1 = Account.objects.get(id=temp)
-            queryset2 = Employee.objects.get(email=temp)
-            form1 = AccountUpdateform1(instance=queryset1)
-            form2 = EmployeeUpdateform(instance=queryset2)
-            if request.method == 'POST':
-                form1 = AccountUpdateform1(
-                    request.POST or None, instance=queryset1)
-                form2 = EmployeeUpdateform(
-                    request.POST or None, instance=queryset2)
-                if form1.is_valid():
-                    form1.save()
-                if form2.is_valid():
-                    form2.save()
-                return redirect('staffac', value=99)
-            context = {
-                'form1': form1,
-                'form2': form2,
-                'arr': arr,
-            }
-            return render(request, 'staff99.html', context)
+            try:
+                temp = request.user.id
+                queryset1 = Account.objects.get(id=temp)
+                queryset2 = Employee.objects.get(email=temp)
+                form1 = AccountUpdateform1(instance=queryset1)
+                form2 = EmployeeUpdateform(instance=queryset2)
+                if request.method == 'POST':
+                    form1 = AccountUpdateform1(
+                        request.POST or None, instance=queryset1)
+                    form2 = EmployeeUpdateform(
+                        request.POST or None, instance=queryset2)
+                    if form1.is_valid():
+                        form1.save()
+                    if form2.is_valid():
+                        form2.save()
+                    return redirect('staffac', value=99)
+                context = {
+                    'form1': form1,
+                    'form2': form2,
+                    'arr': arr,
+                }
+                return render(request, 'staff99.html', context)
+            except:
+                return redirect('staffac',value=0)
         if value == 100:
             if request.method == 'POST':
                 form = PasswordChangeForm(request.user, request.POST)
@@ -639,7 +660,6 @@ def staffac(request, value=0, pk='0'):
             return render(request, 'staff100.html', context)
 
 #--------------------------------Login/Logout----------------------------#
-
 
 def loginuser(request):
     error1 = {
