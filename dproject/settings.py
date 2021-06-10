@@ -42,8 +42,8 @@ LOGGING = {
 }
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+# DEBUG = False
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '.inventoryorg.herokuapp.com',
                  'https://inventoryorg.herokuapp.com', 'www.inventoryorg.herokuapp.com']
