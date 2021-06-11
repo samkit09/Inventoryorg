@@ -1,4 +1,7 @@
 {% extends 'manager_base.html' %} {% block title %}Manager{% endblock title %}
+{% block style %}
+#id_product_serial{margin-top:20px;}
+{% endblock style %}
 {%load crispy_forms_tags%}{%block sidebar %}
 <li>
   <a href="{% url 'managerac' value=0 %}" class="nav-link text-white">
@@ -98,12 +101,12 @@
     </form>
   </div>
 </div>
-{% endblock statcards %} {% comment %} {% block scripts %}
+{% endblock statcards %} 
+{% comment %} {% block scripts %}
 <script>
   function prod_sr(){
     console.log({%for serial in serials%}serial{%endfor%});
     document.getElementById('id_product_serial').innerHTML = `{%for serial in serials%}<option value="${serial.product_serial}">${serial.product_serial}</option>{% endfor %}`;
-
   }
 </script>
 {% endblock scripts %} {% endcomment %}

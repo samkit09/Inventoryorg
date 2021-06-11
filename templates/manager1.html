@@ -1,7 +1,7 @@
 {% extends 'manager_base.html' %} {% block title %}Manager{% endblock title %}
 {% block style %}.info>input{margin-bottom:100px;}
-#div_id_is_returnable{ margin-top:40px; }
-#div_id_is_returnable>label{ margin-top:8px; }{% endblock style %}
+#div_id_is_returnable{margin-left:20px;margin-top:40px;}.info{align-items:start;}.tp{transform:translate(0,-15px)}
+#div_id_is_returnable>label{ margin-top:8px; }{% endblock style %} 
 {%load crispy_forms_tags%}{%block sidebar %}
 <li>
   <a href="{% url 'managerac' value=0 %}" class="nav-link text-white">
@@ -97,7 +97,7 @@
   <div class="infoout">
     <form class="info" method="POST" action="">
       {% csrf_token %} {{form3|crispy}}
-      <input type="submit" value="Add" />
+      <input class="tp" type="submit" value="Add" />
     </form>
   </div>
 </div>

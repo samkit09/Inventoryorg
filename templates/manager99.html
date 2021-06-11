@@ -1,4 +1,5 @@
 {% extends 'manager_base.html' %} {% block title %}Manager{% endblock title %}
+{% block style %} form>a{transform:translate(0,50px)} {% endblock style %}
 {%load crispy_forms_tags%}{%block sidebar %}
 <li>
   <a href="{% url 'managerac' value=0 %}" class="nav-link text-white">
