@@ -1,34 +1,36 @@
+'''
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.core import serializers
+from django.conf import Settings
+from django.http import Http404
+import json
+'''
+import csv
+from datetime import datetime, date
+
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout, login
-
-from .models import *
-from .forms import *
 from django.http import JsonResponse
 
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
-# from rest_framework.views import APIView
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from rest_framework import status
-# from django.core import serializers
-# from django.conf import Settings
-# from django.http import Http404
-# import json
-
-import csv
 from dateutil import relativedelta
-from datetime import datetime, date
+
+from .forms import *
+from .models import *
 
 # Create your views here.
 
-#-----------------------------Admin Account-------------------------------#
+'''-----------------------------Admin Account-------------------------------'''
 
 
-def adminac(request, value=0, pk='0'):
-    if request.user.is_anonymous or pk == 'logoutuser' or request.user.acc_type != 'AD':
+def adminac(request, value=0, p_k='0'):
+    if request.user.is_anonymous or p_k == 'logoutuser' or request.user.acc_type != 'AD':
         return redirect('/login/')
 
     elif request.user.acc_type == 'AD':
@@ -72,8 +74,6 @@ def adminac(request, value=0, pk='0'):
             if form1.is_valid():
                 form1.save()
                 return redirect('adminac', value=0)
-            # else:
-            #     return redirect('adminac', value=1)
 
         if request.method == 'POST' and value == 3:
             try:
@@ -82,44 +82,38 @@ def adminac(request, value=0, pk='0'):
                     return redirect('adminac', value=2)
             except:
                 return redirect('adminac', value=3)
-            # else:
-            #     return redirect('adminac', value=3)
 
         if request.method == 'POST' and value == 6:
             if form6.is_valid():
                 instance = form6.save(commit=False)
-                pk = str(instance.product_id).split(':')
-                pk = pk[0].rstrip()
-                queryset3 = Product.objects.get(product_id=pk)
+                p_k = str(instance.product_id).split(':')
+                p_k = p_k[0].rstrip()
+                queryset3 = Product.objects.get(product_id=p_k)
                 queryset3.quantity -= 1
                 queryset4 = Productlist.objects.get(
                     product_serial=instance.product_serial)
                 queryset4.status = 'IS'
                 now = datetime.now()
-                hr = int(now.strftime('%H'))
-                mn = int(now.strftime('%M'))
-                sn = int(now.strftime('%S'))
+                h_r = int(now.strftime('%H'))
+                m_n = int(now.strftime('%M'))
+                s_n = int(now.strftime('%S'))
                 instance.issue_date = instance.issue_date.replace(
-                    hour=hr, minute=mn, second=sn)
+                    hour=h_r, minute=m_n, second=s_n)
                 queryset3.save()
                 queryset4.save()
                 instance.save()
                 return redirect('adminac', value=7)
-            # else:
-            #     return redirect('adminac', value=6)
 
-        if value == 0 and pk == '0':
+        if value == 0 and p_k == '0':
             return render(request, 'admin0.html', context)
-        if value == 0 and pk != '0':
-            queryset1 = Account.objects.get(username=pk)
+        if value == 0 and p_k != '0':
+            queryset1 = Account.objects.get(username=p_k)
             form7 = AccountUpdateform(instance=queryset1)
             if request.method == 'POST':
                 form7 = AccountUpdateform(request.POST, instance=queryset1)
                 if form7.is_valid():
                     form7.save()
                     return redirect('adminac', value=0)
-                # else:
-                #     return HttpResponse('Invalid value entered while updating Account!')
             context = {
                 'queryset1': queryset1,
                 'form7': form7,
@@ -127,16 +121,16 @@ def adminac(request, value=0, pk='0'):
             return render(request, 'admin00.html', context)
         if value == 1:
             return render(request, 'admin1.html', context)
-        if value == 2 and pk == '0':
+        if value == 2 and p_k == '0':
             return render(request, 'admin2.html', context)
-        if value == 22 and pk != '0':
-            queryset2 = Employee.objects.get(employee_id=pk)
+        if value == 22 and p_k != '0':
+            queryset2 = Employee.objects.get(employee_id=p_k)
             form8 = EmployeeUpdateform(instance=queryset2)
             if request.method == 'POST':
                 form8 = EmployeeUpdateform(request.POST, instance=queryset2)
                 if form8.is_valid():
                     form8.save()
-                    return redirect('adminac', value=2, pk='0')
+                    return redirect('adminac', value=2, p_k='0')
             context = {
                 'queryset2': queryset2,
                 'form8': form8,
@@ -147,7 +141,7 @@ def adminac(request, value=0, pk='0'):
             return render(request, 'admin3.html', context)
         if value == 4:
             return render(request, 'admin4.html', context)
-        if value == 5 and pk == '0':
+        if value == 5 and p_k == '0':
             temp = request.user.id
             try:
                 queryset2 = Employee.objects.get(email=temp)
@@ -162,10 +156,10 @@ def adminac(request, value=0, pk='0'):
                 }
                 return render(request, 'admin5.html', context)
             except:
-                return redirect('adminac',value=3)
+                return redirect('adminac', value=3)
 
-        if value == 55 and pk != '0':
-            queryset5 = Invt_mgt.objects.get(id=pk)
+        if value == 55 and p_k != '0':
+            queryset5 = Invt_mgt.objects.get(id=p_k)
             form9 = Invt_mgtReturnform(instance=queryset5)
             if request.method == 'POST':
                 form9 = Invt_mgtReturnform(request.POST, instance=queryset5)
@@ -175,17 +169,17 @@ def adminac(request, value=0, pk='0'):
                         queryset4 = Productlist.objects.get(
                             product_serial=temp.product_serial)
                         queryset4.status = 'AV'
-                        pk = str(queryset4.product_id).split(':')
-                        pk = pk[0].rstrip()
-                        queryset3 = Product.objects.get(product_id=pk)
+                        p_k = str(queryset4.product_id).split(':')
+                        p_k = p_k[0].rstrip()
+                        queryset3 = Product.objects.get(product_id=p_k)
                         if len(temp.remark) == 0:
                             queryset3.quantity += 1
                         now = datetime.now()
-                        hr = int(now.strftime('%H'))
-                        mn = int(now.strftime('%M'))
-                        sn = int(now.strftime('%S'))
+                        h_r = int(now.strftime('%H'))
+                        m_n = int(now.strftime('%M'))
+                        s_n = int(now.strftime('%S'))
                         temp.reporting_date = temp.reporting_date.replace(
-                            hour=hr, minute=mn, second=sn)
+                            hour=h_r, minute=m_n, second=s_n)
                         queryset3.save()
                         queryset4.save()
                     if len(temp.remark) != 0:
@@ -194,7 +188,7 @@ def adminac(request, value=0, pk='0'):
                         queryset4.status = 'UM'
                         queryset4.save()
                     temp.save()
-                    return redirect('adminac', value=5, pk='0')
+                    return redirect('adminac', value=5, p_k='0')
                 else:
                     return HttpResponse('Invalid value entered while Returning Item!')
             context = {
@@ -212,12 +206,10 @@ def adminac(request, value=0, pk='0'):
                     response = HttpResponse(content_type='text/csv')
                     response['Content-Disposition'] = 'attachment; filename="Transactions.csv"'
                     writer = csv.writer(response)
-                    writer.writerow(['Transaction_id', 'Employee_Id:Name', 'Product_Id:Name',
-                                    'Product_serial', 'Issue_date', 'Return_date', 'Reporting_date', 'Remark'])
+                    writer.writerow(['Transaction_id', 'Employee_Id:Name', 'Product_Id:Name', 'Product_serial', 'Issue_date', 'Return_date', 'Reporting_date', 'Remark'])
                     instance = queryset5
-                    for t in instance:
-                        writer.writerow([t.pk, t.employee_id, t.product_id,
-                                         t.product_serial, t.issue_date, t.return_date, t.reporting_date, t.remark])
+                    for t_p in instance:
+                        writer.writerow([t_p.p_k, t_p.employee_id, t_p.product_id, t_p.product_serial, t_p.issue_date, t_p.return_date, t_p.reporting_date, t_p.remark])
                     return response
             return render(request, 'admin7.html', context)
         if value == 99:
@@ -244,7 +236,7 @@ def adminac(request, value=0, pk='0'):
                 }
                 return render(request, 'admin99.html', context)
             except:
-                return redirect('adminac',value=3)
+                return redirect('adminac', value=3)
         if value == 100:
             if request.method == 'POST':
                 form = PasswordChangeForm(request.user, request.POST)
@@ -261,12 +253,13 @@ def adminac(request, value=0, pk='0'):
             }
             return render(request, 'admin100.html', context)
 
-#----------------------------Manager Account------------------------------#
+
+'''----------------------------Manager Account------------------------------'''
 
 
-def managerac(request, value=0, pk='0'):
+def managerac(request, value=0, p_k='0'):
 
-    if request.user.is_anonymous or pk == 'logoutuser' or request.user.acc_type != 'MG':
+    if request.user.is_anonymous or p_k == 'logoutuser' or request.user.acc_type != 'MG':
         return redirect('/logoutuser')
 
     elif request.user.acc_type == 'MG':
@@ -296,17 +289,16 @@ def managerac(request, value=0, pk='0'):
             'queryset4': queryset4,
             'queryset5': queryset5,
         }
-
-        if value == 0 and pk == '0':
+        if value == 0 and p_k == '0':
             return render(request, 'manager0.html', context)
-        if value == 0 and pk != '0':
-            queryset3 = Product.objects.get(product_id=pk)
+        if value == 0 and p_k != '0':
+            queryset3 = Product.objects.get(product_id=p_k)
             form10 = ProductUpdateform(instance=queryset3)
             if request.method == 'POST':
                 form10 = ProductUpdateform(request.POST, instance=queryset3)
                 if form10.is_valid():
                     form10.save()
-                return redirect('managerac', value=0, pk='0')
+                return redirect('managerac', value=0, p_k='0')
             context = {
                 'queryset3': queryset3,
                 'form10': form10,
@@ -319,16 +311,16 @@ def managerac(request, value=0, pk='0'):
                     form3.save()
                     return redirect('managerac', value=0)
             return render(request, 'manager1.html', context)
-        if value == 2 and pk == '0':
+        if value == 2 and p_k == '0':
             return render(request, 'manager2.html', context)
-        if value == 3 and pk == '0':
+        if value == 3 and p_k == '0':
             if request.method == 'POST':
                 if form4.is_valid():
                     form4.save()
                     return redirect('managerac', value=2)
             return render(request, 'manager3.html', context)
-        if (value == 21 or value == 22 or value == 23) and pk != '0':
-            queryset4 = Productlist.objects.get(product_serial=pk)
+        if (value in (21, 22, 23)) and p_k != '0':
+            queryset4 = Productlist.objects.get(product_serial=p_k)
             temp = str(queryset4.product_id).split(':')
             temp = temp[0].rstrip()
             queryset3 = Product.objects.get(product_id=temp)
@@ -347,14 +339,14 @@ def managerac(request, value=0, pk='0'):
             queryset3.save()
             queryset4.save()
             return redirect('managerac', value=2)
-        if value == 4 and pk == '0':
+        if value == 4 and p_k == '0':
             return render(request, 'manager4.html', context)
-        if value == 44 and pk != '0':
-            form11 = ProductIssueform(request.POST or None, pk=pk)
+        if value == 44 and p_k != '0':
+            form11 = ProductIssueform(request.POST or None, p_k=p_k)
             if request.method == 'POST':
                 queryset1 = Account.objects.get(username=request.user.username)
                 queryset2 = Employee.objects.get(email=queryset1.id)
-                queryset3 = Product.objects.get(product_id=pk)
+                queryset3 = Product.objects.get(product_id=p_k)
                 queryset3.quantity -= 1
                 queryset3.save()
                 print('Queryset Quantity : ', queryset3.quantity)
@@ -367,15 +359,15 @@ def managerac(request, value=0, pk='0'):
                 temp.employee_id = queryset2
                 temp.product_id = queryset3
                 now = datetime.now()
-                hr = int(now.strftime('%H'))
-                mn = int(now.strftime('%M'))
-                sn = int(now.strftime('%S'))
+                h_r = int(now.strftime('%H'))
+                m_n = int(now.strftime('%M'))
+                s_n = int(now.strftime('%S'))
                 temp.issue_date = temp.issue_date.replace(
-                    hour=hr, minute=mn, second=sn)
+                    hour=h_r, minute=m_n, second=s_n)
                 if queryset3.is_returnable == True:
                     today = date.today() + relativedelta.relativedelta(months=1)
-                    d2 = today.strftime('%Y-%m-%d')
-                    temp.return_date = d2
+                    d_2 = today.strftime('%Y-%m-%d')
+                    temp.return_date = d_2
                 temp.save()
                 return redirect('managerac', value=5)
             context = {
@@ -383,7 +375,7 @@ def managerac(request, value=0, pk='0'):
                 'arr': arr,
             }
             return render(request, 'manager44.html', context)
-        if value == 5 and pk == '0':
+        if value == 5 and p_k == '0':
             try:
                 temp = request.user.id
                 queryset2 = Employee.objects.get(email=temp)
@@ -398,9 +390,9 @@ def managerac(request, value=0, pk='0'):
                 }
                 return render(request, 'manager5.html', context)
             except:
-                return redirect('managerac',value=4)
-        if value == 55 and pk != '0':
-            queryset5 = Invt_mgt.objects.get(id=pk)
+                return redirect('managerac', value=4)
+        if value == 55 and p_k != '0':
+            queryset5 = Invt_mgt.objects.get(id=p_k)
             form9 = Invt_mgtReturnform(instance=queryset5)
             if request.method == 'POST':
                 form9 = Invt_mgtReturnform(request.POST, instance=queryset5)
@@ -410,17 +402,17 @@ def managerac(request, value=0, pk='0'):
                         queryset4 = Productlist.objects.get(
                             product_serial=temp.product_serial)
                         queryset4.status = 'AV'
-                        pk = str(queryset4.product_id).split(':')
-                        pk = pk[0].rstrip()
-                        queryset3 = Product.objects.get(product_id=pk)
+                        p_k = str(queryset4.product_id).split(':')
+                        p_k = p_k[0].rstrip()
+                        queryset3 = Product.objects.get(product_id=p_k)
                         if len(temp.remark) == 0:
                             queryset3.quantity += 1
                         now = datetime.now()
-                        hr = int(now.strftime('%H'))
-                        mn = int(now.strftime('%M'))
-                        sn = int(now.strftime('%S'))
+                        h_r = int(now.strftime('%H'))
+                        m_n = int(now.strftime('%M'))
+                        s_n = int(now.strftime('%S'))
                         temp.reporting_date = temp.reporting_date.replace(
-                            hour=hr, minute=mn, second=sn)
+                            hour=h_r, minute=m_n, second=s_n)
                         queryset3.save()
                         queryset4.save()
                     if len(temp.remark) != 0:
@@ -430,8 +422,6 @@ def managerac(request, value=0, pk='0'):
                         queryset4.save()
                     temp.save()
                     return redirect('managerac', value=5)
-                # else:
-                #     return HttpResponse('Invalid value entered while Returning Item!')
             context = {
                 'queryset5': queryset5,
                 'form9': form9,
@@ -464,7 +454,7 @@ def managerac(request, value=0, pk='0'):
                 }
                 return render(request, 'manager99.html', context)
             except:
-                return redirect('managerac',value=6)
+                return redirect('managerac', value=6)
         if value == 100:
             if request.method == 'POST':
                 form = PasswordChangeForm(request.user, request.POST)
@@ -472,8 +462,7 @@ def managerac(request, value=0, pk='0'):
                     user = form.save()
                     update_session_auth_hash(request, user)
                     return redirect('managerac', value=99)
-                else:
-                    return redirect('managerac', value=100)
+                return redirect('managerac', value=100)
             form = PasswordChangeForm(request.user)
             context = {
                 'form': form,
@@ -481,12 +470,13 @@ def managerac(request, value=0, pk='0'):
             }
             return render(request, 'manager100.html', context)
 
-# -----------------------------Staff Account------------------------------#
+
+''' -----------------------------Staff Account------------------------------'''
 
 
-def staffac(request, value=0, pk='0'):
+def staffac(request, value=0, p_k='0'):
 
-    if request.user.is_anonymous or pk == 'logoutuser' or request.user.acc_type != 'ST':
+    if request.user.is_anonymous or p_k == 'logoutuser' or request.user.acc_type != 'ST':
         return redirect('/login')
 
     elif request.user.acc_type == 'ST':
@@ -515,14 +505,14 @@ def staffac(request, value=0, pk='0'):
             'queryset5': queryset5,
         }
 
-        if value == 0 and pk == '0':
+        if value == 0 and p_k == '0':
             return render(request, 'staff0.html', context)
-        if value == 0 and pk != '0':
-            form11 = ProductIssueform(request.POST or None, pk=pk)
+        if value == 0 and p_k != '0':
+            form11 = ProductIssueform(request.POST or None, p_k=p_k)
             if request.method == 'POST':
                 queryset1 = Account.objects.get(username=request.user.username)
                 queryset2 = Employee.objects.get(email=queryset1.id)
-                queryset3 = Product.objects.get(product_id=pk)
+                queryset3 = Product.objects.get(product_id=p_k)
                 queryset3.quantity -= 1
                 queryset3.save()
                 temp = form11.save(commit=False)
@@ -534,14 +524,14 @@ def staffac(request, value=0, pk='0'):
                 temp.product_id = queryset3
                 if queryset3.is_returnable == True:
                     today = date.today() + relativedelta.relativedelta(months=1)
-                    d2 = today.strftime('%Y-%m-%d')
-                    temp.return_date = d2
+                    d_2 = today.strftime('%Y-%m-%d')
+                    temp.return_date = d_2
                 now = datetime.now()
-                hr = int(now.strftime('%H'))
-                mn = int(now.strftime('%M'))
-                sn = int(now.strftime('%S'))
+                h_r = int(now.strftime('%H'))
+                m_n = int(now.strftime('%M'))
+                s_n = int(now.strftime('%S'))
                 temp.issue_date = temp.issue_date.replace(
-                    hour=hr, minute=mn, second=sn)
+                    hour=h_r, minute=m_n, second=s_n)
                 temp.save()
                 return redirect('staffac', value=1)
             context = {
@@ -549,7 +539,7 @@ def staffac(request, value=0, pk='0'):
                 'arr': arr,
             }
             return render(request, 'staff00.html', context)
-        if value == 1 and pk == '0':
+        if value == 1 and p_k == '0':
             try:
                 temp = request.user.id
                 queryset2 = Employee.objects.get(email=temp)
@@ -564,9 +554,9 @@ def staffac(request, value=0, pk='0'):
                 }
                 return render(request, 'staff1.html', context)
             except:
-                return redirect('staffac',value=0)
-        if value == 11 and pk != '0':
-            queryset5 = Invt_mgt.objects.get(id=pk)
+                return redirect('staffac', value=0)
+        if value == 11 and p_k != '0':
+            queryset5 = Invt_mgt.objects.get(id=p_k)
             form9 = Invt_mgtReturnform(instance=queryset5)
             if request.method == 'POST':
                 form9 = Invt_mgtReturnform(request.POST, instance=queryset5)
@@ -576,17 +566,17 @@ def staffac(request, value=0, pk='0'):
                         queryset4 = Productlist.objects.get(
                             product_serial=temp.product_serial)
                         queryset4.status = 'AV'
-                        pk = str(queryset4.product_id).split(':')
-                        pk = pk[0].rstrip()
-                        queryset3 = Product.objects.get(product_id=pk)
+                        p_k = str(queryset4.product_id).split(':')
+                        p_k = p_k[0].rstrip()
+                        queryset3 = Product.objects.get(product_id=p_k)
                         if len(temp.remark) == 0:
                             queryset3.quantity += 1
                         now = datetime.now()
-                        hr = int(now.strftime('%H'))
-                        mn = int(now.strftime('%M'))
-                        sn = int(now.strftime('%S'))
+                        h_r = int(now.strftime('%H'))
+                        m_n = int(now.strftime('%M'))
+                        s_n = int(now.strftime('%S'))
                         temp.reporting_date = temp.reporting_date.replace(
-                            hour=hr, minute=mn, second=sn)
+                            hour=h_r, minute=m_n, second=s_n)
                         queryset3.save()
                         queryset4.save()
                     if len(temp.remark) != 0:
@@ -596,8 +586,6 @@ def staffac(request, value=0, pk='0'):
                         queryset4.save()
                     temp.save()
                     return redirect('staffac', value=0)
-                # else:
-                #     return HttpResponse('Invalid value entered while Returning Item!')
             context = {
                 'queryset5': queryset5,
                 'form9': form9,
@@ -617,7 +605,7 @@ def staffac(request, value=0, pk='0'):
                 }
                 return render(request, 'staff2.html', context)
             except:
-                return redirect('staffac',value=0)
+                return redirect('staffac', value=0)
         if value == 99:
             try:
                 temp = request.user.id
@@ -642,7 +630,7 @@ def staffac(request, value=0, pk='0'):
                 }
                 return render(request, 'staff99.html', context)
             except:
-                return redirect('staffac',value=0)
+                return redirect('staffac', value=0)
         if value == 100:
             if request.method == 'POST':
                 form = PasswordChangeForm(request.user, request.POST)
@@ -650,8 +638,7 @@ def staffac(request, value=0, pk='0'):
                     user = form.save()
                     update_session_auth_hash(request, user)
                     return redirect('staffac', value=99)
-                else :
-                    return redirect('staffac', value=100)
+                return redirect('staffac', value=100)
             form = PasswordChangeForm(request.user)
             context = {
                 'form': form,
@@ -659,7 +646,9 @@ def staffac(request, value=0, pk='0'):
             }
             return render(request, 'staff100.html', context)
 
-#--------------------------------Login/Logout----------------------------#
+
+'''-------------------------------Login/Logout---------------------------#'''
+
 
 def loginuser(request):
     error1 = {
@@ -696,17 +685,14 @@ def loginuser(request):
                 return render(request, 'Login.html', error2)
 
         else:
-
             if acc_type == 'Account Type':
                 return render(request, 'Login.html', error3)
-
-            else:
-                return render(request, 'Login.html', error1)
+            return render(request, 'Login.html', error1)
 
     return render(request, 'Login.html')
 
 
-def logoutuser(request, **kwargs):
+def logoutuser(request):
     logout(request)
     return redirect('/login')
 
