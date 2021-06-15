@@ -144,7 +144,6 @@ def adminac(request, value=0, p_k='0'):
             return render(request, 'admin4.html', context)
         if value == 5 and p_k == '0':
             temp = request.user.id
-            print(temp)
             try:
                 queryset2 = Employee.objects.get(email=temp)
                 temp = str(queryset2.employee_id).split(':')
@@ -199,7 +198,6 @@ def adminac(request, value=0, p_k='0'):
                 'arr': arr,
             }
             return render(request, 'admin55.html', context)
-
         if value == 6:
             return render(request, 'admin6.html', context)
         if value == 7:
@@ -353,13 +351,11 @@ def managerac(request, value=0, p_k='0'):
                 queryset3 = Product.objects.get(product_id=p_k)
                 queryset3.quantity -= 1
                 queryset3.save()
-                print('Queryset Quantity : ', queryset3.quantity)
                 temp = form11.save(commit=False)
                 queryset4 = Productlist.objects.get(
                     product_serial=temp.product_serial)
                 queryset4.status = 'IS'
                 queryset4.save()
-                print('Queryset Status : ', queryset4.status)
                 temp.employee_id = queryset2
                 temp.product_id = queryset3
                 now = datetime.now()
