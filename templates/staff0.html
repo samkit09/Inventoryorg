@@ -69,7 +69,7 @@
         <td>{{instance.quantity}}</td>
         <td>{{instance.is_returnable}}</td>
         <td>
-          <a href="{% url 'staffac' value=0 pk=instance.product_id %}">Issue</a>
+          <a href="{% url 'staffac' value=0 p_k=instance.product_id %}">Issue</a>
         </td>
       </tr>
       {% endfor %}

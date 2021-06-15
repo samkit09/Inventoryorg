@@ -1,7 +1,8 @@
 {% extends 'manager_base.html' %} {% block title %}Manager{% endblock title %}
-{% block style %} #div_id_is_returnable{ margin-top:20px; transform:translate(0,30px)}
-#div_id_is_returnable>label{ margin-top:5px;margin-left:10px;
-}input{margin:auto; margin-bottom:20px;} {% endblock style %} {%load crispy_forms_tags%}{%block sidebar %}
+{% block style %} #div_id_is_returnable{ margin-top:20px;
+transform:translate(0,30px)} #div_id_is_returnable>label{
+margin-top:5px;margin-left:10px; }input{margin:auto; margin-bottom:20px;} 
+{% endblock style %} {%load crispy_forms_tags%}{%block sidebar %}
 <li>
   <a
     href="{% url 'managerac' value=0 %}"
@@ -89,4 +90,15 @@
       <div class="card-body card4">
         <h5 class="card-title text-center">Under Maintenace</h5>
         <p class="card-text">{{arr.3}}</p>
-      </div>pip 
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid headd"></div>
+  <div class="infoout">
+    <form class="info" method="POST" action="">
+      {% csrf_token %} {{form10|crispy}}
+      <input type="submit" value="Update" />
+    </form>
+  </div>
+</div>
+{% endblock statcards %}

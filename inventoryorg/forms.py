@@ -107,7 +107,7 @@ class Invt_mgtIssueform(forms.ModelForm):
 
 class ProductIssueform(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        pk = kwargs.pop('pk')
+        pk = kwargs.pop('p_k')
         super().__init__(*args, **kwargs)
         self.fields['product_serial'].queryset = Productlist.objects.filter(
             status='AV', product_id=pk)

@@ -1,4 +1,4 @@
-{% extends 'staff_base.html' %} {% block title %}Staff{% endblock title %}
+{% extends 'staff_base.html' %} {% block title %}Staff{% endblock title %} 
 {%load crispy_forms_tags%}{%block sidebar %}
 <li>
   <a href="{% url 'staffac' value=0 %}" class="nav-link text-white">
@@ -29,7 +29,8 @@
 <div class="outflex">
   <div class="container-fluid headd"></div>
   <div class="stat">
-    {% comment %} <div class="card">
+    {% comment %}
+    <div class="card">
       <div class="card-body card1">
         <h5 class="card-title text-center">-----</h5>
         <p class="card-text">-</p>
@@ -40,7 +41,8 @@
         <h5 class="card-title text-center">-----</h5>
         <p class="card-text">-</p>
       </div>
-    </div> {% endcomment %}
+    </div>
+    {% endcomment %}
     <div class="card">
       <div class="card-body card3">
         <h5 class="card-title text-center">Issued products</h5>

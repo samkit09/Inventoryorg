@@ -115,13 +115,13 @@
         <td>{{instance.vendor}}</td>
         <td>{{instance.is_returnable}}</td>
         <td>
-          <a href="{% url 'managerac' value=0 pk=instance.product_id %}"
+          <a href="{% url 'managerac' value=0 p_k=instance.product_id %}"
             >Update</a
           >
         </td>
         {% comment %}
         <td>
-          <a href="{% url 'managerac' value=9 pk=instance.product_id %}"
+          <a href="{% url 'managerac' value=9 p_k=instance.product_id %}"
             ><i class="far fa-trash-alt"></i
           ></a>
         </td>

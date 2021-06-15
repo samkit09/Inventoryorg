@@ -108,13 +108,13 @@
         {%if 'UM'==instance.status%}<td>Under Maintenace</td>{%endif%}
         {%if 'IS'==instance.status%}<td>Issued</td>{%endif%} {% endcomment %}
         <td>
-          <a href="{% url 'managerac' value=21 pk=instance.product_serial %}"
+          <a href="{% url 'managerac' value=21 p_k=instance.product_serial %}"
             >AV</a
           >
-          <a href="{% url 'managerac' value=22 pk=instance.product_serial %}"
+          <a href="{% url 'managerac' value=22 p_k=instance.product_serial %}"
             >UM</a
           >
-          <a href="{% url 'managerac' value=23 pk=instance.product_serial %}"
+          <a href="{% url 'managerac' value=23 p_k=instance.product_serial %}"
             >IS</a
           >
         </td>

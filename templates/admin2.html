@@ -117,7 +117,7 @@
         <td>{{instance.email}}</td>
         <td>{{instance.contact}}</td>
         <td>{{instance.department}}</td>
-        <td><a href="{% url 'adminac' value=22 pk=instance.employee_id %}">Update</a></td>
+        <td><a href="{% url 'adminac' value=22 p_k=instance.employee_id %}">Update</a></td>
       </tr>
       {% endfor %}
     </table>

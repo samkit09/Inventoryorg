@@ -117,6 +117,7 @@ def adminac(request, value=0, p_k='0'):
             context = {
                 'queryset1': queryset1,
                 'form7': form7,
+                'arr': arr,
             }
             return render(request, 'admin00.html', context)
         if value == 1:
@@ -143,6 +144,7 @@ def adminac(request, value=0, p_k='0'):
             return render(request, 'admin4.html', context)
         if value == 5 and p_k == '0':
             temp = request.user.id
+            print(temp)
             try:
                 queryset2 = Employee.objects.get(email=temp)
                 temp = str(queryset2.employee_id).split(':')
