@@ -208,10 +208,12 @@ def adminac(request, value=0, p_k='0'):
                     response = HttpResponse(content_type='text/csv')
                     response['Content-Disposition'] = 'attachment; filename="Transactions.csv"'
                     writer = csv.writer(response)
-                    writer.writerow(['Transaction_id', 'Employee_Id:Name', 'Product_Id:Name', 'Product_serial', 'Issue_date', 'Return_date', 'Reporting_date', 'Remark'])
+                    writer.writerow(['Transaction_id', 'Employee_Id:Name', 'Product_Id:Name',
+                                    'Product_serial', 'Issue_date', 'Return_date', 'Reporting_date', 'Remark'])
                     instance = queryset5
                     for t_p in instance:
-                        writer.writerow([t_p.p_k, t_p.employee_id, t_p.product_id, t_p.product_serial, t_p.issue_date, t_p.return_date, t_p.reporting_date, t_p.remark])
+                        writer.writerow([t_p.pk, t_p.employee_id, t_p.product_id, t_p.product_serial,
+                                        t_p.issue_date, t_p.return_date, t_p.reporting_date, t_p.remark])
                     return response
             return render(request, 'admin7.html', context)
         if value == 99:
