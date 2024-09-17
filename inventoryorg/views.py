@@ -198,6 +198,7 @@ def adminac(request, value=0, p_k='0'):
                 'arr': arr,
             }
             return render(request, 'admin55.html', context)
+
         if value == 6:
             return render(request, 'admin6.html', context)
         if value == 7:
