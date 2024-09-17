@@ -1,0 +1,47 @@
+Inventory Management System is a webapp built on Django framework designed to manage assets of corporate and reduce manual work and increase productivity.
+
+* For developing and experimental purposes follow to steps below to create the environment.  
+
+Pre-requisites :
+	*Download and install python3 (skip if already installed) 
+	*install virtualenv using command: "py -m pip install --user virtualenv"
+refer link: "https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/"
+	*create a directory for project and in this directory create virtualenv
+(navigate to this directory and run "py -m venv env_name" in command prompt/terminal)
+
+Step 1: Extract the zip file inside the directory created.
+
+step 2: Open cmd in the directory and activate the virtual environment 
+(run ".\env_name\Scripts\activate")
+
+Step 3: Install all the dependencies mentioned in requirementes.txt
+(run "pip install -r requirements.txt")
+
+Step 4: Set DEBUG and SECRET_KEY by:
+	*create 2 environment variables:
+		-DEBUG_VALUE (either True or False)
+		-SECRET_KEY (used for hashing the urls)
+OR
+	* Hardcode these value in settings.py file. (Insecure)
+
+Note - Create a new random secret key using -
+'''
+from django.core.management.utils import get_random_secret_key
+print(get_random_secret_key())
+'''
+
+Step 5 (OPTIONAL): Default database used is sqlite and its file will be created automatically. 
+
+Step 6: In command prompt/terminal run "python manage.py makemigrations" then "python manage.py migrate".
+If some other database (mysql or postgres) is to be used then changes have to be done in settings.py.
+(refer link : "https://docs.djangoproject.com/en/3.2/ref/databases/")
+
+step 7: Create a super user by running "python manage.py createsuperuser" and enter details as asked and set account_type = 'AD'
+
+step 8: Run "python manage.py runserver" to start the development server on localhost.
+paste the link in browser to use the application.
+
+step 9: Login using the credentials of superuser created earlier.
+
+*For further details for using the application refer "User_Guide" document provided.
+*To know more about django refer link: "https://docs.djangoproject.com/en/5.1/"
