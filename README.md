@@ -90,7 +90,8 @@ Generate a random secret key:
 from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
-__Alternatively, these variables can be hardcoded in settings.py (not recommended for production).__
+[!NOTE] 
+Alternatively, these variables can be hardcoded in settings.py (not recommended for production).
 
 #### Step 5: Apply Database Migrations
 ```bash
@@ -102,13 +103,15 @@ Create an admin account to manage the system:
 ```bash
 python manage.py createsuperuser
 ```
-**Enter the required details when prompted, and set account_type = 'AD'**
+[!IMPORTANT]
+Enter the required details when prompted, and set account_type = 'AD'
 
 #### Step 7: Run the Development Server
 ```bash
 python manage.py runserver
 ```
-__Access the application via your web browser at http://localhost:8000/ or http://127.0.0.1:8000/__
+[!NOTE]
+Access the application via your web browser at http://localhost:8000/ or http://127.0.0.1:8000/
 #### Step 8: Login
 Log in using the superuser credentials created earlier. Through this account you can create new profiles.
 
