@@ -2,8 +2,10 @@
 ## Project Overview
 InventoryOrg is a web-based Inventory Management System built with __Django__ and designed to help corporate organizations efficiently manage their assets and employee details. This system provides a centralized database to track and manage product stocks, inward and outward entries, and employee-related information. It allows multiple users to log in simultaneously, ensuring real-time updates and minimizing manual effort in managing inventory records and transactions.
 
+![Content](./static/imgs/read.png)
 The primary goal of the system is to reduce paperwork, automate manual processes, and provide a more efficient way to manage corporate assets.
 
+![Application Screenshot](./static/imgs/HomePage.png)
 ## Key Features
 * __Employee Management__: Store, view, and update employee information.
 * __Inventory Management__: Track all product stocks, issue and return items, and automatically update stock levels.
