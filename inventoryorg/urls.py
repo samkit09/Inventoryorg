@@ -17,6 +17,6 @@ urlpatterns = [
     path('staffac/<int:value>/', views.staffac, name="staffac"),
     path('staffac/<int:value>/<str:p_k>/', views.staffac, name="staffac"),
 
-    path('logoutuser', views.logoutuser, name="logoutuser"),
-    re_path(r'./logoutuser$', views.logoutuser, name="logoutuser"),
+    path('logoutuser/', views.logoutuser, name="logoutuser"),
+    re_path(r'.*/logoutuser$', views.logoutuser, name="logoutuser"),
 ]

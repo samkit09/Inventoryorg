@@ -100,9 +100,6 @@ class Invt_mgtIssueform(forms.ModelForm):
             'issue_date': DateInput(),
             'return_date': DateInput(),
         }
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['product_serial'].queryset = Productlist.objects.none()
 
 
 class ProductIssueform(forms.ModelForm):
