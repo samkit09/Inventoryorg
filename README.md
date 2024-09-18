@@ -1,4 +1,9 @@
-# InventoryOrg - Inventory Management System [Demo](https://samkitsaraf.pythonanywhere.com/)
+# InventoryOrg - Inventory Management System 
+### Click this link to go to live website: [__Demo_Link__](https://samkitsaraf.pythonanywhere.com/)
+> Login using below credentials
+> * Username : testing
+> * Password : justtesting123
+> * Account : Staff
 ## Project Overview
 InventoryOrg is a web-based Inventory Management System built with __Django__ and designed to help corporate organizations efficiently manage their assets and employee details. This system provides a centralized database to track and manage product stocks, inward and outward entries, and employee-related information. It allows multiple users to log in simultaneously, ensuring real-time updates and minimizing manual effort in managing inventory records and transactions.
 
